@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -128,6 +129,7 @@ BOOTSTRAP3 = {
 #Heroku设置
 if os.getcwd() == '/app':
     import dj_database_url
+
     DATABASES = {
         'default': dj_database_url.config(default='postgres://localhost')
     }
@@ -135,12 +137,17 @@ if os.getcwd() == '/app':
     #让request.is_secure()承认X-Forwarded-Proto头
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARD_PROTO', 'https') #支持http请求
 
+    #只允许Heroku托管这个项目
+    ALLOWED_HOSTS = ['hgl-learning-log.herokuapp.com']
+
+    DEBUG = False
+
     #支持所有主机的头(gost header)
     ALLOWED_HOSTS = ['*']
 
     #静态资产配置
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    STATIC_ROOT = 'staticfiles'
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static'),
     )
