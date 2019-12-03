@@ -12,9 +12,6 @@ def logout_view(request):
     return HttpResponseRedirect(reverse('learning_logs:index'))
 
 
-
-
-
 def register(request):
     """注册新用户"""
     if request.method != 'POST':
